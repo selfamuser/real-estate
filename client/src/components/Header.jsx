@@ -16,7 +16,7 @@ function Header() {
                 >
                     <input
                         type='text'
-                        placeholder='Search Homes...'
+                        placeholder='Search Properties...'
                         className='bg-transparent text-purple-500 font-bold focus:outline-none w-24 sm:w-64'
                     />
                     <button className="hover:scale-110 hover:font-semibold">

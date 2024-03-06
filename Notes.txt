@@ -1,0 +1,15 @@
+1- Installation of React.js and Tailwind CSS
+2- Creation of all pages and their templates
+3- Creating the Header component UI
+4- Initializing the server / backend
+5- Connecting to MongoDB
+6- Creating user model
+7- Creating test api route
+
+
+
+// Important
+
+1- When we try to send json then it does not allows us and output is "Undefined"
+    So to use and view that data
+    We need to add "app.use(express.json())" to play with it in "index.js" file of server
