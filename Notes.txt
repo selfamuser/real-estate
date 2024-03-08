@@ -13,3 +13,6 @@
 1- When we try to send json then it does not allows us and output is "Undefined"
     So to use and view that data
     We need to add "app.use(express.json())" to play with it in "index.js" file of server
+
+
+    Redux presist helps us to store userdata to local storage
