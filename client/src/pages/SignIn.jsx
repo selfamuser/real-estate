@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 import {
   signInFailure,
   signInStart,
@@ -70,11 +71,12 @@ export default function SignIn() {
           >
             {loading ? "Loading..." : "Sign In"}
           </button>
+          <OAuth />
         </form>
         <div className="mt-3 text-center">
           <p>
             Not a registered user?
-            <Link to={"/sign-in"}>
+            <Link to={"/signup"}>
               <span className="text-purple-600 font-bold">
                 {"  "}
                 Click here to Sign Up...
