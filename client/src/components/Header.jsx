@@ -34,7 +34,7 @@ function Header() {
                             About
                         </li>
                     </Link>
-                    <Link to='/profile'>
+                    <Link to='/signin'>
                         <li className=' text-purple-700 hover:scale-110 hover:font-bold'> Sign in</li>
                     </Link>
                 </ul>
