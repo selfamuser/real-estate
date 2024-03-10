@@ -41,18 +41,19 @@ function Header() {
                             About
                         </li>
                     </Link>
-
-                    <Link to="/profile">
                         {currentUser ? (
+                            <Link to="/profile">
                             <img
                                 className="rounded-full h-7 w-7 object-cover"
                                 src={currentUser.avatar}
                                 alt="profile"
                             />
+                            </Link>
                         ) : (
+                            <Link to="/signin">
                             <li className=" text-purple-700 hover:scale-110 hover:font-bold"> Sign in</li>
+                            </Link>
                         )}
-                    </Link>
                 </ul>
             </div>
         </header>
@@ -60,3 +61,4 @@ function Header() {
 }
 
 export default Header;
+
