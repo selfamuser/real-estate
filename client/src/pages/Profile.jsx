@@ -5,18 +5,22 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { app } from '../firebase';
+import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
 
 function Profile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser ,loading,error} = useSelector((state) => state.user);
+  const [isVisible, setIsVisible] = useState(true);
   const [deleteText, setDeleteText] = useState("Delete Account");
   const [signoutText, setSignoutText] = useState("Sign Out");
   const [filePercentUpload, setFilePercentUpload] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
+  const dispatch = useDispatch();
 
   // firebase storage
   // allow read;
@@ -29,6 +33,15 @@ function Profile() {
       handleFileUpload(file);
     }
   }, [file]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+  
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -58,9 +71,35 @@ function Profile() {
       });
   }
 
-  // const handleChange = (e) => {
-  //  setFormData({ ...formData, [e.target.id]: e.target.value });
-  //};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
 
   const handleMouseOverSignOut = () => {
     setSignoutText("Want to exit?");
@@ -81,7 +120,7 @@ function Profile() {
       <h1 className="text-4xl text-purple-800 font-semibold text-center my-7">
         Profile
       </h1>
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -91,7 +130,7 @@ function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2 mb-2"
         />
@@ -114,6 +153,7 @@ function Profile() {
           defaultValue={currentUser.username}
           id="username"
           className="border p-3 rounded-lg px-4 py-2 text-center"
+          onChange={handleChange}
         />
         <input
           type="email"
@@ -121,15 +161,17 @@ function Profile() {
           id="email"
           defaultValue={currentUser.email}
           className="border p-3 rounded-lg px-4 py-2 text-center"
+          onChange={handleChange}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
           className="border p-3 rounded-lg px-4 py-2 text-center"
+          onChange={handleChange}
         />
-        <button className="bg-purple-800 text-white p-3 rounded-lg uppercase hover:bg-green-600">
-          Update
+        <button disabled={loading} className="bg-purple-800 text-white p-3 rounded-lg uppercase hover:bg-green-600">
+          {loading ? 'Loading..' : 'Update'}
         </button>
       </form>
       <div className="flex justify-between mt-5">
@@ -148,6 +190,10 @@ function Profile() {
           {signoutText}
         </span>
       </div>
+       <p className='text-center text-red-700 mt-5'>{error ? `${error} Access` : ''}</p>
+     { isVisible && <p className='text-center text-green-700 mt-5'>
+        {updateSuccess ? 'User is updated successfully!' : ''}
+      </p>}
     </div>
   );
 }
