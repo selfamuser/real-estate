@@ -11,6 +11,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -124,6 +127,22 @@ function Profile() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
+  };
+
+
 
   const handleMouseOverSignOut = () => {
     setSignoutText("Want to exit?");
@@ -208,6 +227,7 @@ function Profile() {
           {deleteText}
         </span>
         <span
+          onClick={handleSignOut}
           className="text-red-600 font-semibold text-shadow-lg cursor-pointer"
           onMouseOver={handleMouseOverSignOut}
           onMouseOut={handleMouseOutSignOut}
