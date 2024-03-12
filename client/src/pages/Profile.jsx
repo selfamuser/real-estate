@@ -7,7 +7,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { app } from '../firebase';
-import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
+import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from '../redux/user/userSlice';
 
 function Profile() {
   const { currentUser ,loading,error} = useSelector((state) => state.user);
@@ -100,6 +107,23 @@ function Profile() {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
 
   const handleMouseOverSignOut = () => {
     setSignoutText("Want to exit?");
@@ -176,6 +200,7 @@ function Profile() {
       </form>
       <div className="flex justify-between mt-5">
         <span
+          onClick = {handleDeleteUser}
           className="text-red-600 font-semibold text-shadow-lg cursor-pointer"
           onMouseOver={handleMouseOverDelete}
           onMouseOut={handleMouseOutDelete}
