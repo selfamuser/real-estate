@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import authRouter from './routes/auth.route.js';
+import listingRouter from './routes/listing.route.js';
 import userRouter from './routes/user.route.js';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.listen(PORT, () => {
 });
 app.use('/api/user', userRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/listing',listingRouter);
 
 
 //--->>> Middleware to handle error <<<---
