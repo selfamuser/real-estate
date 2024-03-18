@@ -247,6 +247,10 @@ function Profile() {
      { isVisible && <p className='text-center text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>}
+
+      {/* <button onClick={handleShowListings} className='text-green-700 w-full'>
+        Show Listings
+      </button> */}
     </div>
   );
 }
