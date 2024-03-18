@@ -181,6 +181,25 @@ function Profile() {
 
   }
 
+  const handleListingDelete = async(listingId) =>{
+    try {
+
+      const res = await fetch(`/api/listing/delete/${listingId}`,{
+        method:'DELETE',
+      });
+      const data = await res.json();
+      if(data.success===false){
+        alert(`Failed to delete listing ${data.message}`);
+        return;
+      }
+      setUserListings((prev)=> prev.filter((l)=> l._id !== listingId) 
+      );
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
 
 
 
@@ -305,7 +324,7 @@ function Profile() {
               </Link>
               <div className='flex flex-col item-center'>
                 <button
-                  // onClick={() => handleListingDelete(listing._id)}
+                  onClick={() => handleListingDelete(listing._id)}
                   className='text-red-600 uppercase hover:font-bold'
                 >
                  Delete
