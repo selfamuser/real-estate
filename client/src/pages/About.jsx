@@ -43,17 +43,7 @@ export default function About() {
         </ul>
       </p>
     </div>
-    {/* <div className="text-5xl flex items-center justify-center gap-4">
-            <a href="https://github.com/selfamuser" target="_blank" rel="noopener noreferrer">
-                <FaGithub className="text-purple-600 hover:text-green-700 cursor-pointer" />
-            </a>
-            <a href="https://linkedin.com/in/utkarsh-lajja-shukla-b36901186/" target="_blank" rel="noopener noreferrer">
-                <FaLinkedin className="text-purple-600 hover:text-green-700 cursor-pointer" />
-            </a>
-            <a href="/portfolio">
-                <FiExternalLink className="text-purple-600 hover:text-green-700 cursor-pointer" />
-            </a>
-        </div> */}
+
         <div className="mb-20 flex flex-col items-center justify-center h-full">
             <div className="bg-gray-200 text-xl shadow-md rounded-lg p-8 w-80">
                 <h2 className="text-3xl text-purple-700 font-bold mb-4">Contact Me</h2>
