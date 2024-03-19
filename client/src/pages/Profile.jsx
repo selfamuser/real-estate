@@ -329,9 +329,9 @@ function Profile() {
                 >
                  Delete
                 </button>
-                {/* <Link to={`/update-listing/${listing._id}`}> */}
+                <Link to={`/update-listing/${listing._id}`}>
                   <button className='text-green-600 uppercase hover:font-bold'>Edit</button>
-                {/* </Link> */}
+                </Link>
               </div>
 
             </div>
