@@ -29,9 +29,9 @@ function Contact({listing}) {
       {landlord && (
         <div className='flex flex-col gap-2'>
           <p>
-            Contact <span className='font-semibold'>{landlord.username}</span>{' '}
-            for{' '}
-            <span className='font-semibold'>{listing.name.toLowerCase()}</span>
+            Contact <span className='font-semibold text-purple-700'>{landlord.username.toUpperCase()}</span>{' '}
+            for the property {' '}
+            <span className='font-semibold text-purple-700'>{listing.name.toUpperCase()}</span>
           </p>
           <textarea
             name='message'
