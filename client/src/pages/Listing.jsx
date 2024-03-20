@@ -26,7 +26,6 @@ function Listing() {
     const [copied, setCopied] = useState(false);
     const [contact, setContact] = useState(false)
 
-
     useEffect(() => {
 
         const fetchListing = async () => {
@@ -51,7 +50,7 @@ function Listing() {
         };
         fetchListing();
     }, [params.listingId])
-    // console.log(currentUser._id,listing?.userRef)
+    //console.log(currentUser._id,listing?.userRef)
 
     return (
         <main>
@@ -95,8 +94,8 @@ function Listing() {
                         <p className='text-2xl font-semibold'>
                             {listing.name} - &#8377;{' '}
                             {listing.offer
-                                ? listing.regularPrice.toLocaleString('en-US')
-                                : listing.discountPrice.toLocaleString('en-US')}
+                                ? (listing.regularPrice-listing.discountPrice).toLocaleString('en-US')
+                                : listing.regularPrice.toLocaleString('en-US')}
                             {listing.type === 'rent' && ' / month'}
                         </p>
                         <p className='flex items-center mt-3 gap-2 text-slate-600 text-xl'>
@@ -109,8 +108,9 @@ function Listing() {
                             </p>
                             {listing.offer && (
                                 <p className='bg-green-700 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                                    &#8377; {+listing.discountPrice} Off
+                                    &#8377; {+listing.discountPrice} Off 
                                 </p>
+                               
                             )}
                         </div>
                         <p className='text-slate-800'>
