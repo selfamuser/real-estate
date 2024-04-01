@@ -54,6 +54,8 @@ function Profile() {
 
     return () => clearTimeout(timeout);
   }, []);
+
+  //console.log(currentUser)
   
 
   const handleFileUpload = (file) => {
@@ -84,7 +86,7 @@ function Profile() {
       });
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { 
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -344,3 +346,4 @@ function Profile() {
 }
 
 export default Profile;
+
