@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon api/index.js",
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
-  "author": "",
+  "author": "Utkarsh Shukla",
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
