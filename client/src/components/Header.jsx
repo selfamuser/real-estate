@@ -23,6 +23,7 @@ function Header() {
         if (searchTermFromUrl) {
           setSearchTerm(searchTermFromUrl);
         }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [location.search]);
   
     
@@ -44,7 +45,7 @@ function Header() {
                     <input
                         type="text"
                         placeholder="Search Properties..."
-                        className="bg-transparent text-purple-500 font-bold focus:outline-none w-24 sm:w-64"
+                        className="bg-transparent  font-bold focus:outline-none w-24 sm:w-64"
                         value={searchTerm}
                         onChange={(e)=>setSearchTerm(e.target.value)}
                     />

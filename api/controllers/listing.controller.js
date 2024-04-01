@@ -81,7 +81,7 @@ export const getListings = async (req, res,next)=>{
     const startIndex = parseInt(req.query.startIndex) || 0;
     let offer = req.query.offer;
 
-    if (offer === undefined || offer === 'false' || offer === 'true') {
+    if (offer === undefined || offer === 'false') {
       offer = { $in: [false, true] };
     }
 
